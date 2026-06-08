@@ -1,0 +1,136 @@
+HOW TO MINE DUCO ON A TI-84 PLUS CE CALCULATOR
+
+WHAT YOU NEED
+
+TI-84 Plus CE calculator (not the older grey screen version)
+Mini-USB to USB-A cable
+Windows, Mac, or Linux computer
+Internet connection
+
+STEP 1: INSTALL THE TOOLCHAIN
+
+On Windows
+
+Go to CEmu website and download CE-Dev-Setup.exe
+Run the installer
+Check libusb and USBDRVCE when asked
+Click Finish
+
+On Mac
+
+Open Terminal
+git clone https://github.com/CE-Programming/toolchain
+cd toolchain
+./install.sh
+
+On Linux
+
+sudo apt-get install build-essential
+git clone https://github.com/CE-Programming/toolchain
+cd toolchain
+./install.sh
+
+STEP 2: INSTALL USB DRIVER
+
+Open Terminal or Command Prompt
+
+git clone https://github.com/commandblockguy/CE-serial
+cd CE-serial
+make
+
+On Windows only you may need to install a driver called zadig
+
+STEP 3: CREATE THE MINER CODE
+
+Open any text editor (Notepad, VS Code, TextEdit)
+Copy the DUCOMiner.c code from above
+Save it as DUCOMiner.c
+Save it inside the CE-serial folder
+
+STEP 4: COMPILE THE CODE
+
+Open Terminal or Command Prompt in the CE-serial folder
+
+make DUCOMiner
+
+If you see errors, check that you copied the code exactly.
+
+STEP 5: SEND TO CALCULATOR
+
+Plug your calculator into the computer with USB cable
+On the calculator, press 2nd then Link (the button above Enter)
+Press Receive
+On your computer type
+
+ticalc-usb send DUCOMiner.8xp
+
+Wait for it to finish. The calculator will say Done.
+
+STEP 6: SET UP THE PYTHON BRIDGE
+
+Make sure Python 3 is installed from python.org
+Install pyserial by typing
+
+pip install pyserial
+
+Copy the calc_bridge.py code from above
+Save it as calc_bridge.py
+Open the file and change this line
+
+DUCO_USER = "YOUR_USERNAME_HERE"
+
+to your actual Duino-Coin username
+
+Find your calculator's serial port
+
+On Windows look in Device Manager under Ports. It will say COM3, COM4, etc.
+
+On Mac open Terminal and type ls /dev/tty.usb* It will show something like /dev/tty.usbmodem1234
+
+On Linux open Terminal and type ls /dev/ttyUSB* It will show something like /dev/ttyUSB0
+
+Change the COMPUTER_PORT line in calc_bridge.py to your port
+
+STEP 7: RUN THE MINER
+
+On the calculator, find DUCOMiner in the programs list and run it
+You should see READY on the calculator screen
+On your computer, open Terminal in the folder with calc_bridge.py
+Type python calc_bridge.py
+Press Enter
+
+WHAT YOU SHOULD SEE
+
+On the calculator you will see a screen showing hashes, accepted shares, and rejected shares. Dots will appear while mining. When a share is found it will say FOUND and the nonce number.
+
+On your computer you will see Calculator ready, Connected to server, Job diff XX target XXXX, and ACCEPTED when you find shares.
+
+TROUBLESHOOTING
+
+Problem No calculator found
+
+Check USB cable. Make sure calculator is in Receive mode. Try a different USB port.
+
+Problem Calculator not responding
+
+Press the reset button on the back of the calculator. Restart the program.
+
+Problem Compilation errors
+
+Make sure you copied the code exactly with no missing brackets. Check that the toolchain installed correctly.
+
+Problem Bridge says Connection failed
+
+Check your internet connection. Make sure DUCO_USER is changed to your username. Try port 2812 instead of 2811 in the code.
+
+EXPECTED PERFORMANCE
+
+TI-84 Plus CE will get about 500 to 1000 hashes per second which is roughly 1 to 2 DUCO per day.
+
+Older TI-83 models will get about 50 to 100 hashes per second which is not worth it for profit but still fun for bragging rights.
+
+WHEN YOU GET IT WORKING
+
+Post on the Duino-Forum. Post on Cemetech.
+Tell everyone you are the first person to mine crypto on a calculator. 
+Share your code. Help others do it too. Good luck.// Finally, done with this
